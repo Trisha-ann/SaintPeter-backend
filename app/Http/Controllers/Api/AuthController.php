@@ -15,12 +15,12 @@ class AuthController extends Controller
      * Login the specified user.
      */ public function login(AuthRequest $request)
      {
-        $staff = Employee::where('employee_id', $request->employee_id)->first(); 
+        $employee = Employee::where('employee_id', $request->employee_id)->first(); 
 
-        if ($staff && Hash::check($request->password, $staff->password)) {
+        if ($employee && Hash::check($request->password, $employee->password)) {
             $response = [
-                'staff' => $staff,
-                'staff_token' => $staff->createToken('auth_token')->plainTextToken,
+                'employee' => $employee,
+                'employee_token' => $employee->createToken('auth_token')->plainTextToken,
             ];
         } else {
             throw ValidationException::withMessages([

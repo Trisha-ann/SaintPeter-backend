@@ -11,7 +11,7 @@ class Employee extends Authenticatable
 {
     use Notifiable, HasFactory, HasApiTokens;
 
-    protected $guard ='employee';
+    protected $guard ='employees';
     protected $primaryKey ='employee_id';
 
     protected $fillable = [
