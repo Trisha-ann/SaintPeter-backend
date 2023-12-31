@@ -7,25 +7,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Employee extends Authenticatable
+class Customers extends Authenticatable
 {
     use Notifiable, HasFactory, HasApiTokens;
 
-    protected $guard ='employees';
-    protected $primaryKey ='employee_id';
+    protected $primaryKey = 'customers_id';
 
     protected $fillable = [
-        'employee_id',
-        'first_name',
         'last_name',
-        'password',
+        'first_name', 
+        'address',
+        'age',
+        'gender',
+        'birth_date',
+        'death_date',
+        'employee_id',
     ];
 
-    protected $hidden = [
-        'password',
-    ];
-
-    public function customers(){
-        return $this->hasMany(Customers::class, 'employee_id');
+    public function employee(){
+        return $this->belongsTo(Employee::class);
     }
 }

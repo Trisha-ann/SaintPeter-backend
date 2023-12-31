@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmployeeController;
-
+use App\Http\Controllers\Api\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\EmployeeController;
 
 //Public API
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
 // Route::post('/employee', 'store')->name('employee.store');
 //Private API
 Route::middleware('auth:sanctum')->group(function () {
