@@ -18,17 +18,24 @@ use App\Http\Controllers\Api\CustomerController;
 
 //Public API
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-// Route::post('/employee', 'store')->name('employee.store');
+
 //Private API
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
-        Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
+        Route::post('/employee', 'store')->name('employee.store');
         Route::get('/employee/{id}', 'show')->name('employee.show');
-        Route::put('/employee/{$id}', 'update')->name('employee.update');
+        Route::put('/employee/{id}', 'update')->name('employee.update'); //x-www-form-urlencoded
         Route::delete('/employee/{id}', 'destroy')->name('employee.destroy');
     });
-});
+
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+        Route::post('/customers', 'store')->name('customer.store');
+        Route::get('/customers/{id}', 'show')->name('customer.show');
+        Route::put('/customers/{id}', 'update')->name('customer.update'); //x-www-form-urlencoded
+        Route::delete('/customers/{id}', 'destroy')->name('customer.destroy');
+    });
+});         
