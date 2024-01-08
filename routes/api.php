@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\PlansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use App\Http\Controllers\Api\CustomerController;
 
 //Public API
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.store');
 
 //Private API
 Route::middleware('auth:sanctum')->group(function () {
@@ -25,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
-        Route::post('/employee', 'store')->name('employee.store');
+        //Route::post('/employee', 'store')->name('employee.store');
         Route::get('/employee/{id}', 'show')->name('employee.show');
         Route::put('/employee/{id}', 'update')->name('employee.update'); //x-www-form-urlencoded
         Route::delete('/employee/{id}', 'destroy')->name('employee.destroy');
@@ -37,5 +39,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/customers/{id}', 'show')->name('customer.show');
         Route::put('/customers/{id}', 'update')->name('customer.update'); //x-www-form-urlencoded
         Route::delete('/customers/{id}', 'destroy')->name('customer.destroy');
+    });
+
+    Route::controller(PlansController::class)->group(function(){
+        Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
+        Route::post('/plans', 'store')->name('plans.store');
+        Route::get('/plans/{id}', 'show')->name('plans.show');
+        Route::put('/plans/{id}', 'update')->name('plans.update');
+        Route::put('/plans-image/{id}', 'update')->name('plans.updateImage');
+        Route::delete('/plans/{id}', 'destroy')->name('plans.destroy');
     });
 });         
