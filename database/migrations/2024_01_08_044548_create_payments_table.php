@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id')->autoIncrement();
+            $table->integer('customers_id')->references('customers_id')->on('customers');
+            $table->integer('plan_id')->references('plan_id')->on('plans');
+            $table->string('employee_id')->references('employee_id')->on('employees');
             $table->float('purchased_payable');
             $table->float('amount_received');
             $table->float('balance');
