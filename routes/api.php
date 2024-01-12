@@ -27,6 +27,7 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee.s
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
 
+    //admin api
     Route::controller(EmployeeController::class)->group(function () {
         Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
         //Route::post('/employee', 'store')->name('employee.store');
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/employee/{id}', 'destroy')->name('employee.destroy');
     });
 
+    //employee api
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
         Route::post('/customers', 'store')->name('customer.store');
@@ -43,19 +45,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/customers/{id}', 'destroy')->name('customer.destroy');
     });
 
+    //admin
     Route::controller(PlansController::class)->group(function(){
         Route::get('/plans', [PlansController::class, 'index'])->name('plans.index');
         Route::post('/plans', 'store')->name('plans.store');
+        //employee api
         Route::get('/plans/{id}', 'show')->name('plans.show');
         Route::put('/plans/{id}', 'update')->name('plans.update');
         Route::put('/plans-image/{id}', 'update')->name('plans.updateImage');
         Route::delete('/plans/{id}', 'destroy')->name('plans.destroy');
     });
 
+    //employee api
     Route::controller(PaymentController::class)->group(function(){
         Route::get('/payment', [PaymentController::class, 'index'])->name('payments.index');
         Route::post('/payment', 'store')->name('payments.store');
         Route::get('/payment/{id}', 'show')->name('payments.show');
-        Route::delete('/payment/{id}', 'destroy')->name('payments.destroy');
     });
 });         
